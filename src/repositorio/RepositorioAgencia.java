@@ -140,7 +140,7 @@ public class RepositorioAgencia extends Conexao implements InterfaceAgencia {
         }
         return agencias;
     }
-    
+    //igor
     public ArrayList<Agencia> listarNomeAg(String filtro) throws SQLException, ClassNotFoundException {
         ArrayList<Agencia> agencias = new ArrayList<>();
         conex = conectar();
