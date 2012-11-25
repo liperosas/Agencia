@@ -41,9 +41,9 @@ public class RepositorioCurriculo extends Conexao implements InterfaceCurriculo 
      * @throws ClassNotFoundException
      */
     @Override
-    public void removerCur(int cod) throws SQLException, ClassNotFoundException {
+    public void remover(int codCur) throws SQLException, ClassNotFoundException {
         conex = conectar();
-        String sql = "delete from curriculo where curriculo_cod =" + cod;
+        String sql = "delete from curriculo where curriculo_cod =" + codCur;
         conex.execute(sql);
         desconectar();
     }
@@ -55,7 +55,7 @@ public class RepositorioCurriculo extends Conexao implements InterfaceCurriculo 
      * @throws ClassNotFoundException
      */
     @Override
-    public void alterarCur(Curriculo curriculo) throws SQLException, ClassNotFoundException {
+    public void alterar(Curriculo curriculo) throws SQLException, ClassNotFoundException {
         conex = conectar();
         String sql = "update curriculo set primeiro_nome ='" + curriculo.getPrimeiroNome() + "', sobrenome ='" + curriculo.getSobrenome() + "', sexo='" + curriculo.getSexo() + "', endereco='" + curriculo.getEndereco() + "', contato_fone='" + curriculo.getContatoFone() + "', contato_email='" + curriculo.getContatoEmail() + "', contato_outras_info='" + curriculo.getContatoOutrasInfo() + "', experiencia_de_trabalho='" + curriculo.getExperienciaDeTrabalho() + "' where Curriculo_cod = " + curriculo.getCurriculoCod();
         conex.execute(sql);
@@ -70,9 +70,9 @@ public class RepositorioCurriculo extends Conexao implements InterfaceCurriculo 
      * @throws ClassNotFoundException
      */
     @Override
-    public Curriculo procurarCur(int cod) throws SQLException, ClassNotFoundException {
+    public Curriculo procurar(int codCur) throws SQLException, ClassNotFoundException {
         conex = conectar();
-        String sql = "select curriculo_cod, primeiro_nome, sobrenome, sexo,  endereco,contato_fone, contato_email, contato_outras_info, experiencia_de_trabalho from Curriculo where curriculo_cod=" + cod;
+        String sql = "select curriculo_cod, primeiro_nome, sobrenome, sexo,  endereco,contato_fone, contato_email, contato_outras_info, experiencia_de_trabalho from Curriculo where curriculo_cod=" + codCur;
         ResultSet rs = conex.executeQuery(sql);
         Curriculo curriculo = new Curriculo();
         while (rs.next()) {
@@ -100,6 +100,50 @@ public class RepositorioCurriculo extends Conexao implements InterfaceCurriculo 
         ArrayList<Curriculo> curriculos = new ArrayList<>();
         conex = conectar();
         String sql = "select curriculo_cod, primeiro_nome, sobrenome, sexo, contato_fone, contato_email, contato_outras_info, experiencia_de_trabalho, endereco from Curriculo";
+        ResultSet rs = conex.executeQuery(sql);
+        while (rs.next()) {
+            Curriculo curriculo = new Curriculo();
+            curriculo.setCurriculoCod(rs.getInt("curriculo_cod"));
+            curriculo.setPrimeiroNome(rs.getString("primeiro_nome"));
+            curriculo.setSobrenome(rs.getString("sobrenome"));
+            curriculo.setSexo(rs.getString("sexo"));
+            curriculo.setContatoFone(rs.getString("contato_fone"));
+            curriculo.setContatoEmail(rs.getString("contato_email"));
+            curriculo.setContatoOutrasInfo(rs.getString("contato_outras_info"));
+            curriculo.setExperienciaDeTrabalho(rs.getString("experiencia_de_trabalho"));
+            curriculo.setEndereco(rs.getString("endereco"));
+            curriculos.add(curriculo);
+        }
+        return curriculos;
+    }
+    
+    public ArrayList<Curriculo> listarNomeCur(String filtro) throws SQLException, ClassNotFoundException {
+        ArrayList<Curriculo> curriculos = new ArrayList<>();
+        conex = conectar();
+        String sql = "select curriculo_cod, primeiro_nome, sobrenome, sexo, contato_fone, contato_email, contato_outras_info, experiencia_de_trabalho, endereco from curriculo where curriculo_cod=curriculo_cod  and primeiro_nome like '%"+filtro+"%'";
+          
+        ResultSet rs = conex.executeQuery(sql);
+        while (rs.next()) {
+            Curriculo curriculo = new Curriculo();
+            curriculo.setCurriculoCod(rs.getInt("curriculo_cod"));
+            curriculo.setPrimeiroNome(rs.getString("primeiro_nome"));
+            curriculo.setSobrenome(rs.getString("sobrenome"));
+            curriculo.setSexo(rs.getString("sexo"));
+            curriculo.setContatoFone(rs.getString("contato_fone"));
+            curriculo.setContatoEmail(rs.getString("contato_email"));
+            curriculo.setContatoOutrasInfo(rs.getString("contato_outras_info"));
+            curriculo.setExperienciaDeTrabalho(rs.getString("experiencia_de_trabalho"));
+            curriculo.setEndereco(rs.getString("endereco"));
+            curriculos.add(curriculo);
+        }
+        return curriculos;
+    }
+    
+    public ArrayList<Curriculo> listarSobreNomeCur(String filtro) throws SQLException, ClassNotFoundException {
+        ArrayList<Curriculo> curriculos = new ArrayList<>();
+        conex = conectar();
+        String sql = "select curriculo_cod, primeiro_nome, sobrenome, sexo, contato_fone, contato_email, contato_outras_info, experiencia_de_trabalho, endereco from curriculo where curriculo_cod=curriculo_cod  and sobrenome like '%"+filtro+"%'";
+          
         ResultSet rs = conex.executeQuery(sql);
         while (rs.next()) {
             Curriculo curriculo = new Curriculo();

@@ -15,11 +15,14 @@ import javax.swing.JOptionPane;
 public class RemoverCurriculo extends javax.swing.JFrame {
 
     Fachada fachada = new Fachada();
+    ListaCurriculo lC;
     /**
      * Creates new form RemoverCurriculo
      */
-    public RemoverCurriculo(Curriculo curriculo) {
+    public RemoverCurriculo(Curriculo curriculo, ListaCurriculo lC) {
         initComponents();
+        this.lC = lC;
+        
         tCodigo.setText(Integer.toString(curriculo.getCurriculoCod()));
         tPrimeiroNome.setText(curriculo.getPrimeiroNome());
         tSobreNome.setText(curriculo.getSobrenome());
@@ -219,6 +222,8 @@ public class RemoverCurriculo extends javax.swing.JFrame {
         int cod = Integer.parseInt(tCodigo.getText());
         fachada.remover(cod);
         JOptionPane.showMessageDialog(rootPane, "Cadastro removido com sucesso");
+        lC.atualizarTabela();
+        dispose();
         }
         }catch (Exception ex){
             JOptionPane.showMessageDialog(rootPane, ex.getMessage());

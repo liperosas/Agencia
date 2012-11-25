@@ -26,6 +26,22 @@ public class ListaCurriculo extends javax.swing.JFrame {
      */
     public ListaCurriculo() {
         initComponents();
+        atualizarTabela();
+    }
+
+    public void atualizarTabela() {
+        tabela = new DefaultTableModel();
+        ArrayList<Curriculo> lista = new ArrayList<Curriculo>();
+        tabela.setColumnIdentifiers(new String[]{"Código", "Nome", "Sobrenome", "Fone", "Email"});
+        try {
+            lista = fachada.listar();
+            for (int i = 0; i < lista.size(); i++) {
+                tabela.addRow(new Object[]{lista.get(i).getCurriculoCod(), lista.get(i).getPrimeiroNome(), lista.get(i).getSobrenome(), lista.get(i).getContatoFone(), lista.get(i).getContatoEmail()});
+            }
+            jTable1.setModel(tabela);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
     }
 
     /**
@@ -44,6 +60,10 @@ public class ListaCurriculo extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -91,6 +111,22 @@ public class ListaCurriculo extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setText("Pesquisa por nome:");
+
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField1KeyReleased(evt);
+            }
+        });
+
+        jLabel3.setText("Pesquisa por Sobrenome:");
+
+        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField2KeyReleased(evt);
+            }
+        });
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -100,16 +136,25 @@ public class ListaCurriculo extends javax.swing.JFrame {
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 613, Short.MAX_VALUE)
                     .add(layout.createSequentialGroup()
-                        .add(jLabel1)
-                        .add(0, 0, Short.MAX_VALUE))
-                    .add(layout.createSequentialGroup()
                         .add(jButton1)
                         .add(18, 18, 18)
                         .add(jButton4)
                         .add(18, 18, 18)
                         .add(jButton3)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(jButton2)))
+                        .add(jButton2))
+                    .add(layout.createSequentialGroup()
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jLabel1)
+                            .add(layout.createSequentialGroup()
+                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                    .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 123, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                    .add(jLabel2))
+                                .add(33, 33, 33)
+                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                                    .add(jLabel3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .add(jTextField2))))
+                        .add(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -117,15 +162,23 @@ public class ListaCurriculo extends javax.swing.JFrame {
             .add(layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jLabel1)
-                .add(18, 18, 18)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel2)
+                    .add(jLabel3))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 18, Short.MAX_VALUE)
                 .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 258, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(18, 18, 18)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jButton1)
                     .add(jButton2)
                     .add(jButton3)
                     .add(jButton4))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -161,7 +214,7 @@ public class ListaCurriculo extends javax.swing.JFrame {
                 Curriculo curriculo = new Curriculo();
                 int cod = (Integer) jTable1.getValueAt(selectedRow, 0);
                 curriculo = fachada.procurar(cod);
-                RemoverCurriculo rc = new RemoverCurriculo(curriculo);
+                RemoverCurriculo rc = new RemoverCurriculo(curriculo, this);
                 rc.setVisible(true);
             }
         } catch (Exception ex) {
@@ -179,13 +232,45 @@ public class ListaCurriculo extends javax.swing.JFrame {
                 Curriculo curriculo = new Curriculo();
                 int cod = (Integer) jTable1.getValueAt(selectedRow, 0);
                 curriculo = fachada.procurar(cod);
-                AlterarCurriculo ac = new AlterarCurriculo(curriculo);
+                AlterarCurriculo ac = new AlterarCurriculo(curriculo, this);
                 ac.setVisible(true);
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage());
         }
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
+        tabela = new DefaultTableModel();
+        ArrayList<Curriculo> lista = new ArrayList<Curriculo>();
+
+        tabela.setColumnIdentifiers(new String[]{"Código", "Nome", "Sobrenome", "Fone", "Email"});
+        try {
+            lista = fachada.listarNomeCur(jTextField1.getText());
+            for (int i = 0; i < lista.size(); i++) {
+                tabela.addRow(new Object[]{lista.get(i).getCurriculoCod(), lista.get(i).getPrimeiroNome(), lista.get(i).getSobrenome(), lista.get(i).getContatoFone(), lista.get(i).getContatoEmail()});
+            }
+            jTable1.setModel(tabela);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+    }//GEN-LAST:event_jTextField1KeyReleased
+
+    private void jTextField2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyReleased
+        tabela = new DefaultTableModel();
+        ArrayList<Curriculo> lista = new ArrayList<Curriculo>();
+
+        tabela.setColumnIdentifiers(new String[]{"Código", "Nome", "Sobrenome", "Fone", "Email"});
+        try {
+            lista = fachada.listarSobreNomeCur(jTextField2.getText());
+            for (int i = 0; i < lista.size(); i++) {
+                tabela.addRow(new Object[]{lista.get(i).getCurriculoCod(), lista.get(i).getPrimeiroNome(), lista.get(i).getSobrenome(), lista.get(i).getContatoFone(), lista.get(i).getContatoEmail()});
+            }
+            jTable1.setModel(tabela);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+    }//GEN-LAST:event_jTextField2KeyReleased
 
     /**
      * @param args the command line arguments
@@ -227,7 +312,11 @@ public class ListaCurriculo extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }

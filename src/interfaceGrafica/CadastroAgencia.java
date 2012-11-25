@@ -206,12 +206,8 @@ public class CadastroAgencia extends javax.swing.JFrame {
         agencia.setAg_outras_info(jTextArea1.getText());
         try {
             fachada.inserir(agencia);
-            JOptionPane.showMessageDialog(rootPane, "Agencia cadastrada com sucesso");
-            jTextField1.setText("");
-            jTextField3.setText("");
-            jTextField4.setText("");
-            jTextField5.setText("");
-            jTextArea1.setText("");
+            JOptionPane.showMessageDialog(rootPane, "Agência cadastrada com sucesso");
+            dispose();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage());
         }

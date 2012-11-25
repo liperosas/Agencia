@@ -15,12 +15,14 @@ import javax.swing.JOptionPane;
 public class AlterarCurriculo extends javax.swing.JFrame {
 
     Fachada fachada = new Fachada();
+    ListaCurriculo lC;
 
     /**
      * Creates new form AlterarCurriculo
      */
-    public AlterarCurriculo(Curriculo curriculo) {
+    public AlterarCurriculo(Curriculo curriculo, ListaCurriculo lC) {
         initComponents();
+        this.lC = lC;
 
         tCodigo.setText(Integer.toString(curriculo.getCurriculoCod()));
         tPrimeiroNome.setText(curriculo.getPrimeiroNome());
@@ -232,6 +234,8 @@ public class AlterarCurriculo extends javax.swing.JFrame {
                 curriculo.setContatoOutrasInfo(tAInformações.getText());
                 fachada.alterar(curriculo);
                 JOptionPane.showMessageDialog(rootPane, "Cadastro Alterado com sucesso");
+                lC.atualizarTabela();
+                dispose();
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage());

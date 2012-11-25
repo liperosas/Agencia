@@ -32,7 +32,7 @@ public class AlterarCategoriasAgencia extends javax.swing.JFrame {
         DefaultTableModel tabela = new DefaultTableModel();
         try {
             categorias = fachada.listarCatAg(cod);
-            tabela.setColumnIdentifiers(new String[]{"Codigo", "Nome"});
+            tabela.setColumnIdentifiers(new String[]{"Código", "Nome"});
             for (int i = 0; i < categorias.size(); i++) {
                 Categoria categoria = new Categoria();
                 categoria = fachada.procurarCat(categorias.get(i).getCat_cod());
@@ -71,6 +71,7 @@ public class AlterarCategoriasAgencia extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -111,6 +112,13 @@ public class AlterarCategoriasAgencia extends javax.swing.JFrame {
             }
         });
 
+        jButton4.setText("Sair");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -120,17 +128,18 @@ public class AlterarCategoriasAgencia extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton2)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton3)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton4)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -146,7 +155,8 @@ public class AlterarCategoriasAgencia extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(jButton3)
+                    .addComponent(jButton4))
                 .addContainerGap(152, Short.MAX_VALUE))
         );
 
@@ -162,7 +172,7 @@ public class AlterarCategoriasAgencia extends javax.swing.JFrame {
             DefaultTableModel tabela = new DefaultTableModel();
 
             categorias = fachada.listarCatAg(cod);
-            tabela.setColumnIdentifiers(new String[]{"Codigo", "Nome"});
+            tabela.setColumnIdentifiers(new String[]{"Código", "Nome"});
             for (int i = 0; i < categorias.size(); i++) {
                 Categoria categoria = new Categoria();
                 categoria = fachada.procurarCat(categorias.get(i).getCat_cod());
@@ -188,7 +198,7 @@ public class AlterarCategoriasAgencia extends javax.swing.JFrame {
                 ArrayList<Categoria> categorias = new ArrayList<>();
                 DefaultTableModel tabela = new DefaultTableModel();
                 categorias = fachada.listarCatAg(cod);
-                tabela.setColumnIdentifiers(new String[]{"Codigo", "Nome"});
+                tabela.setColumnIdentifiers(new String[]{"Código", "Nome"});
                 for (int i = 0; i < categorias.size(); i++) {
                     Categoria categoria = new Categoria();
                     categoria = fachada.procurarCat(categorias.get(i).getCat_cod());
@@ -215,7 +225,7 @@ public class AlterarCategoriasAgencia extends javax.swing.JFrame {
                 ArrayList<Categoria> categorias = new ArrayList<>();
                 DefaultTableModel tabela = new DefaultTableModel();
                 categorias = fachada.listarCatAg(cod);
-                tabela.setColumnIdentifiers(new String[]{"Codigo", "Nome"});
+                tabela.setColumnIdentifiers(new String[]{"Código", "Nome"});
                 for (int i = 0; i < categorias.size(); i++) {
                     Categoria categoria = new Categoria();
                     categoria = fachada.procurarCat(categorias.get(i).getCat_cod());
@@ -227,6 +237,10 @@ public class AlterarCategoriasAgencia extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage());
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+dispose();
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -272,6 +286,7 @@ public class AlterarCategoriasAgencia extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;

@@ -32,6 +32,14 @@ public class RnAgencia {
             if (agencia.getAg_nome().equals("") || (agencia.getAg_nome() == null)) {
                 throw new Exception("Informe um nome para a Agência");
             }
+            
+            ArrayList<Agencia> agencias = new ArrayList<Agencia>();
+            agencias = r.validarAg(agencia.getAg_nome());
+            
+            if(!agencias.isEmpty()){
+                throw new Exception("Já consta uma Agência com este nome em nosso sistema.");
+            }
+            
             if (agencia.getAg_endereco().equals("") || agencia.getAg_endereco() == null) {
                 throw new Exception("Campo endereço não pode estar vazio");
             }
@@ -134,6 +142,16 @@ public class RnAgencia {
         }
         return age;
     }
+    
+    public ArrayList<Agencia> procurarAgNome(String filtro)throws Exception{
+        ArrayList<Agencia> lista = new ArrayList<>();
+        try {
+            lista = r.procurarAgNome(filtro);
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new Exception(e.getMessage());
+        }
+        return lista;
+    }
 
     public ArrayList<Categoria> listarCatAg(int cod) throws Exception {
         ArrayList<Categoria> categ = new ArrayList<>();
@@ -211,5 +229,25 @@ public class RnAgencia {
             throw new Exception(e.getMessage());
         }
         return cat;
+    }
+    
+    public ArrayList<Agencia> listarAgenciaCat(int codigoCat)throws Exception{
+        ArrayList<Agencia> lista = new ArrayList<>();
+        try {
+            lista = r.listarAgenciaCat(codigoCat);
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new Exception(e.getMessage());
+        }
+        return lista;
+    }
+    
+    public ArrayList<Agencia> validarAg(String filtro)throws Exception{
+        ArrayList<Agencia> lista = new ArrayList<>();
+        try {
+            lista = r.validarAg(filtro);
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new Exception(e.getMessage());
+        }
+        return lista;
     }
 }

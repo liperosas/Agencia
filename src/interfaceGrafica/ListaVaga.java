@@ -41,6 +41,27 @@ public class ListaVaga extends javax.swing.JFrame {
             }
             jTable1.setModel(tabela);
         } catch (Exception ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        }
+    }
+
+    public void atualizarTabela() {
+        try {
+            ArrayList<Vaga> vagas = new ArrayList<>();
+            DefaultTableModel tabela = new DefaultTableModel();
+
+            vagas = fachada.listarVag();
+
+            tabela.setColumnIdentifiers(new String[]{"Código", "Agência", "Tipo da Vaga", "Pré-Requisito", "Local", "Número de Vagas"});
+
+            for (int i = 0; i < vagas.size(); i++) {
+                Agencia age = new Agencia();
+                age = fachada.procurarAg(vagas.get(i).getAgencia().getAg_cod());
+                tabela.addRow(new Object[]{vagas.get(i).getVaga_cod(), age.getAg_nome(), vagas.get(i).getTipo_vaga(), vagas.get(i).getPre_requisito(), vagas.get(i).getVaga_local(), vagas.get(i).getNum_vaga()});
+            }
+            jTable1.setModel(tabela);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
         }
     }
 
@@ -60,6 +81,12 @@ public class ListaVaga extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jTextField3 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -107,6 +134,30 @@ public class ListaVaga extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setText("Procurar por Agência:");
+
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField1KeyReleased(evt);
+            }
+        });
+
+        jLabel3.setText("Procurar por Tipo de Vaga:");
+
+        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField2KeyReleased(evt);
+            }
+        });
+
+        jLabel4.setText("Procurar por Pré-Requisito:");
+
+        jTextField3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField3KeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -116,16 +167,27 @@ public class ListaVaga extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1)
                         .addGap(18, 18, 18)
                         .addComponent(jButton2)
                         .addGap(18, 18, 18)
                         .addComponent(jButton3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton4)))
+                        .addComponent(jButton4))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jTextField1))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jTextField2))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jTextField3))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -134,6 +196,16 @@ public class ListaVaga extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -141,7 +213,7 @@ public class ListaVaga extends javax.swing.JFrame {
                     .addComponent(jButton2)
                     .addComponent(jButton3)
                     .addComponent(jButton4))
-                .addContainerGap(118, Short.MAX_VALUE))
+                .addGap(64, 64, 64))
         );
 
         pack();
@@ -190,7 +262,7 @@ public class ListaVaga extends javax.swing.JFrame {
             Vaga vagas = new Vaga();
             try {
                 vagas = fachada.procurarVag(codigo);
-                AlterarVaga vag = new AlterarVaga(vagas);
+                AlterarVaga vag = new AlterarVaga(vagas, this);
                 vag.setVisible(rootPaneCheckingEnabled);
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(rootPane, ex.getMessage());
@@ -215,8 +287,64 @@ public class ListaVaga extends javax.swing.JFrame {
             }
             jTable1.setModel(tabela);
         } catch (Exception ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
+        ArrayList<Vaga> vagas = new ArrayList<>();
+        DefaultTableModel tabela = new DefaultTableModel();
+        tabela = new DefaultTableModel();
+        tabela.setColumnIdentifiers(new String[]{"Código", "Agência", "Tipo da Vaga", "Pré-Requisito", "Local", "Número de Vagas"});
+        try {
+            vagas = fachada.listarAgenciaVag(jTextField1.getText());
+            for (int i = 0; i < vagas.size(); i++) {
+                Agencia age = new Agencia();
+                age = fachada.procurarAg(vagas.get(i).getAgencia().getAg_cod());
+                tabela.addRow(new Object[]{vagas.get(i).getVaga_cod(), age.getAg_nome(), vagas.get(i).getTipo_vaga(), vagas.get(i).getPre_requisito(), vagas.get(i).getVaga_local(), vagas.get(i).getNum_vaga()});
+            }
+            jTable1.setModel(tabela);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+    }//GEN-LAST:event_jTextField1KeyReleased
+
+    private void jTextField2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyReleased
+
+        ArrayList<Vaga> vagas = new ArrayList<>();
+        DefaultTableModel tabela = new DefaultTableModel();
+        tabela = new DefaultTableModel();
+        tabela.setColumnIdentifiers(new String[]{"Código", "Agência", "Tipo da Vaga", "Pré-Requisito", "Local", "Número de Vagas"});
+        try {
+            vagas = fachada.listarTipoVag(jTextField2.getText());
+            for (int i = 0; i < vagas.size(); i++) {
+                Agencia age = new Agencia();
+                age = fachada.procurarAg(vagas.get(i).getAgencia().getAg_cod());
+                tabela.addRow(new Object[]{vagas.get(i).getVaga_cod(), age.getAg_nome(), vagas.get(i).getTipo_vaga(), vagas.get(i).getPre_requisito(), vagas.get(i).getVaga_local(), vagas.get(i).getNum_vaga()});
+            }
+            jTable1.setModel(tabela);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+    }//GEN-LAST:event_jTextField2KeyReleased
+
+    private void jTextField3KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyReleased
+        ArrayList<Vaga> vagas = new ArrayList<>();
+        DefaultTableModel tabela = new DefaultTableModel();
+        tabela = new DefaultTableModel();
+        tabela.setColumnIdentifiers(new String[]{"Código", "Agência", "Tipo da Vaga", "Pré-Requisito", "Local", "Número de Vagas"});
+        try {
+            vagas = fachada.listarPreReqVag(jTextField3.getText());
+            for (int i = 0; i < vagas.size(); i++) {
+                Agencia age = new Agencia();
+                age = fachada.procurarAg(vagas.get(i).getAgencia().getAg_cod());
+                tabela.addRow(new Object[]{vagas.get(i).getVaga_cod(), age.getAg_nome(), vagas.get(i).getTipo_vaga(), vagas.get(i).getPre_requisito(), vagas.get(i).getVaga_local(), vagas.get(i).getNum_vaga()});
+            }
+            jTable1.setModel(tabela);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+    }//GEN-LAST:event_jTextField3KeyReleased
 
     /**
      * @param args the command line arguments
@@ -258,7 +386,13 @@ public class ListaVaga extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
 }

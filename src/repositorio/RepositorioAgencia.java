@@ -103,6 +103,25 @@ public class RepositorioAgencia extends Conexao implements InterfaceAgencia {
         return agencia;
     }
 
+    public ArrayList<Agencia> procurarAgNome(String filtro) throws SQLException, ClassNotFoundException {
+        ArrayList<Agencia> agencias = new ArrayList<>();
+        conex = conectar();
+        String sql = "select ag_cod, ag_nome, ag_endereco, ag_fone, ag_email, ag_outras_info from agencia where ag_cod=ag_cod and ag_nome like '%" + filtro + "%'";
+
+        ResultSet rs = conex.executeQuery(sql);
+        while (rs.next()) {
+            Agencia agencia = new Agencia();
+            agencia.setAg_cod(rs.getInt("ag_cod"));
+            agencia.setAg_nome(rs.getString("ag_nome"));
+            agencia.setAg_endereco(rs.getString("ag_endereco"));
+            agencia.setAg_fone(rs.getString("ag_fone"));
+            agencia.setAg_email(rs.getString("ag_email"));
+            agencia.setAg_outras_info(rs.getString("ag_outras_info"));
+            agencias.add(agencia);
+        }
+        return agencias;
+    }
+
     public ArrayList<Categoria> listarCatAg(int cod) throws SQLException, ClassNotFoundException {
         ArrayList<Categoria> categorias = new ArrayList<>();
         conex = conectar();
@@ -126,7 +145,7 @@ public class RepositorioAgencia extends Conexao implements InterfaceAgencia {
         }
         if (filtro.getAg_cod() != 0) {
             sql += "and ag_cod like '%" + filtro.getAg_cod() + "'%";
-        }        
+        }
         ResultSet rs = conex.executeQuery(sql);
         while (rs.next()) {
             Agencia agencia = new Agencia();
@@ -140,12 +159,12 @@ public class RepositorioAgencia extends Conexao implements InterfaceAgencia {
         }
         return agencias;
     }
-    
+
     public ArrayList<Agencia> listarNomeAg(String filtro) throws SQLException, ClassNotFoundException {
         ArrayList<Agencia> agencias = new ArrayList<>();
         conex = conectar();
-        String sql = "select ag_cod, ag_nome, ag_endereco, ag_fone, ag_email, ag_outras_info from agencia where ag_cod=ag_cod and ag_nome like '%"+filtro+"%'";
-          
+        String sql = "select ag_cod, ag_nome, ag_endereco, ag_fone, ag_email, ag_outras_info from agencia where ag_cod=ag_cod and ag_nome like '%" + filtro + "%'";
+
         ResultSet rs = conex.executeQuery(sql);
         while (rs.next()) {
             Agencia agencia = new Agencia();
@@ -205,5 +224,51 @@ public class RepositorioAgencia extends Conexao implements InterfaceAgencia {
             vagas.add(vaga);
         }
         return vagas;
+    }
+
+    public ArrayList<Agencia> listarAgenciaCat(int codigoCat) throws SQLException, ClassNotFoundException {
+        ArrayList<Agencia> agencias = new ArrayList<>();
+        ArrayList<Agencia> codAgencias = new ArrayList<Agencia>();
+        conex = conectar();
+        String sql = "select Ag_Cod from categorias_da_agencia where Cat_Ag_Cod =" + codigoCat;
+        ResultSet rs = conex.executeQuery(sql);
+
+        while (rs.next()) {
+            Agencia a = new Agencia();
+            a.setAg_cod(rs.getInt("Ag_Cod"));
+            codAgencias.add(a);
+        }
+
+        for (int i = 0; i < codAgencias.size(); i++) {
+            sql = "select ag_cod, ag_nome, ag_endereco, ag_fone, ag_email, ag_outras_info from agencia where Ag_Cod = " + codAgencias.get(i).getAg_cod();
+            ResultSet result = conex.executeQuery(sql);
+
+            while (result.next()) {
+                Agencia agencia = new Agencia();
+                agencia.setAg_cod(result.getInt("ag_cod"));
+                agencia.setAg_nome(result.getString("ag_nome"));
+                agencia.setAg_endereco(result.getString("ag_endereco"));
+                agencia.setAg_fone(result.getString("ag_fone"));
+                agencia.setAg_email(result.getString("ag_email"));
+                agencia.setAg_outras_info(result.getString("ag_outras_info"));
+                agencias.add(agencia);
+            }
+        }
+
+        return agencias;
+    }
+
+    public ArrayList<Agencia> validarAg(String filtro) throws SQLException, ClassNotFoundException {
+        ArrayList<Agencia> agencias = new ArrayList<>();
+        conex = conectar();
+        String sql = "select ag_nome from agencia where ag_nome='" + filtro + "'";
+
+        ResultSet rs = conex.executeQuery(sql);
+        while (rs.next()) {
+            Agencia agencia = new Agencia();
+            agencia.setAg_nome(rs.getString("ag_nome"));
+            agencias.add(agencia);
+        }
+        return agencias;
     }
 }

@@ -17,12 +17,14 @@ import javax.swing.JOptionPane;
  */
 public class AlterarVaga extends javax.swing.JFrame {
 Fachada fachada = new Fachada();
+ListaVaga lV;
 int codigo;
     /**
      * Creates new form AlterarVaga
      */
-    public AlterarVaga(Vaga vaga) {
+    public AlterarVaga(Vaga vaga, ListaVaga lV) {
         initComponents();
+        this.lV = lV;
         Agencia age = new Agencia();
         try {
             age = fachada.procurarAg(vaga.getAgencia().getAg_cod());
@@ -202,6 +204,7 @@ vaga.setVaga_cod(Integer.parseInt(jTextField5.getText()));
 
 fachada.alterar(vaga);
 JOptionPane.showMessageDialog(rootPane, "Alteração concluída com êxito");
+lV.atualizarTabela();
 dispose();
 }catch (Exception ex){
 JOptionPane.showMessageDialog(rootPane, ex.getMessage());

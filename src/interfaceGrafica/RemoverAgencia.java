@@ -15,12 +15,14 @@ import javax.swing.JOptionPane;
 public class RemoverAgencia extends javax.swing.JFrame {
 
     Fachada fachada = new Fachada();
+    ListaAgencia lA;
 
     /**
      * Creates new form RemoverAgencia
      */
-    public RemoverAgencia(Agencia agencia) {
-        initComponents();
+    public RemoverAgencia(Agencia agencia, ListaAgencia lA) {
+        initComponents();        
+        this.lA = lA;
         tCodigo.setText(Integer.toString(agencia.getAg_cod()));
         tNome.setText(agencia.getAg_nome());
         tEndereco.setText(agencia.getAg_endereco());
@@ -182,11 +184,13 @@ public class RemoverAgencia extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         try {
-            int valor = JOptionPane.showConfirmDialog(rootPane, "Deseja Remover Este Cadastro?", "Remover", JOptionPane.YES_NO_OPTION);
+            int valor = JOptionPane.showConfirmDialog(rootPane, "Deseja remover este Cadastro?", "Remover", JOptionPane.YES_NO_OPTION);
             if (valor == 0) {
                 int cod = Integer.parseInt(tCodigo.getText());
                 fachada.removerAg(cod);
                 JOptionPane.showMessageDialog(rootPane, "Cadastro removido com sucesso");
+                lA.atualizarTabela();
+                dispose();
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage());

@@ -181,6 +181,7 @@ public class CadastroVaga extends javax.swing.JFrame {
 
             fachada.inserir(vaga);
             JOptionPane.showMessageDialog(rootPane, "Vaga cadastrada com sucesso");
+            dispose();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage());
     }//GEN-LAST:event_jButton1ActionPerformed

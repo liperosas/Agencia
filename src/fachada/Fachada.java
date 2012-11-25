@@ -32,24 +32,36 @@ public class Fachada {
         rnc.inserir(curriculo);
     }
 
-    public void remover(int cod) throws Exception {
-        rnc.removerCur(cod);
+    public void remover(int codCur) throws Exception {
+        rnc.remover(codCur);
     }
 
     public void alterar(Curriculo curriculo) throws Exception {
-        rnc.alterarCur(curriculo);
+        rnc.alterar(curriculo);
     }
 
-    public Curriculo procurar(int cod) throws Exception {
+    public Curriculo procurar(int codCur) throws Exception {
         Curriculo cur = new Curriculo();
-        cur = rnc.procurarCur(cod);
+        cur = rnc.procurar(codCur);
 
         return cur;
     }
 
     public ArrayList<Curriculo> listar() throws Exception {
-        ArrayList<Curriculo> lista = new ArrayList<>();
+        ArrayList<Curriculo> lista = new ArrayList<Curriculo>();
         lista = rnc.listarCur();
+        return lista;
+    }
+
+    public ArrayList<Curriculo> listarNomeCur(String filtro) throws Exception {
+        ArrayList<Curriculo> lista = new ArrayList<Curriculo>();
+        lista = rnc.listarNomeCur(filtro);
+        return lista;
+    }
+
+    public ArrayList<Curriculo> listarSobreNomeCur(String filtro) throws Exception {
+        ArrayList<Curriculo> lista = new ArrayList<Curriculo>();
+        lista = rnc.listarSobreNomeCur(filtro);
         return lista;
     }
 
@@ -72,21 +84,33 @@ public class Fachada {
         return age;
     }
 
+    public ArrayList<Agencia> procurarAgNome(String filtro) throws Exception {
+        ArrayList<Agencia> lista = new ArrayList<Agencia>();
+        lista = rna.procurarAgNome(filtro);
+        return lista;
+    }
+
     public ArrayList<Categoria> listarCatAg(int cod) throws Exception {
-        ArrayList<Categoria> categ = new ArrayList<>();
+        ArrayList<Categoria> categ = new ArrayList<Categoria>();
         categ = rna.listarCatAg(cod);
         return categ;
     }
 
     public ArrayList<Agencia> listar(Agencia filtro) throws Exception {
-        ArrayList<Agencia> lista = new ArrayList<>();
+        ArrayList<Agencia> lista = new ArrayList<Agencia>();
         lista = rna.listar(filtro);
         return lista;
     }
 
     public ArrayList<Agencia> listarNomeAg(String filtro) throws Exception {
-        ArrayList<Agencia> lista = new ArrayList<>();
+        ArrayList<Agencia> lista = new ArrayList<Agencia>();
         lista = rna.listarNomeAg(filtro);
+        return lista;
+    }
+    
+     public ArrayList<Agencia> validarAg(String filtro) throws Exception {
+        ArrayList<Agencia> lista = new ArrayList<Agencia>();
+        lista = rna.validarAg(filtro);
         return lista;
     }
 
@@ -138,6 +162,24 @@ public class Fachada {
         return lista;
     }
 
+    public ArrayList<Vaga> listarAgenciaVag(String filtro) throws Exception {
+        ArrayList<Vaga> lista = new ArrayList<Vaga>();
+        lista = rnv.listarAgenciaVag(filtro);
+        return lista;
+    }
+
+    public ArrayList<Vaga> listarTipoVag(String filtro) throws Exception {
+        ArrayList<Vaga> lista = new ArrayList<Vaga>();
+        lista = rnv.listarTipoVag(filtro);
+        return lista;
+    }
+
+    public ArrayList<Vaga> listarPreReqVag(String filtro) throws Exception {
+        ArrayList<Vaga> lista = new ArrayList<Vaga>();
+        lista = rnv.listarPreReqVag(filtro);
+        return lista;
+    }
+
     public int verificar(int ag_cod) throws Exception {
         rnv.verificar(ag_cod);
         return ag_cod;
@@ -157,5 +199,11 @@ public class Fachada {
 
     public void validarNumVaga(String num) throws Exception {
         rnv.validarNumVaga(num);
+    }
+
+    public ArrayList<Agencia> listarAgenciaCat(int codigoCat) throws Exception {
+        ArrayList<Agencia> lista = new ArrayList<Agencia>();
+        lista = rna.listarAgenciaCat(codigoCat);
+        return lista;
     }
 }

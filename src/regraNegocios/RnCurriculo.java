@@ -52,23 +52,23 @@ public class RnCurriculo {
         }
     }
 
-    public void removerCur(int cod) throws Exception {
+    public void remover(int codCur) throws Exception {
         try {
-            String temp = Integer.toString(cod);
+            String temp = Integer.toString(codCur);
             for (int i = 0; i < temp.length(); i++) {
                 char num = temp.charAt(i);
                 if (Character.isDigit(num) == false) {
                     throw new Exception("Codigo Inválido");
                 }
             }
-            r.removerCur(cod);
+            r.remover(codCur);
 
         } catch (SQLException | ClassNotFoundException ex) {
             throw new Exception(ex.getMessage());
         }
     }
 
-    public void alterarCur(Curriculo curriculo) throws Exception {
+    public void alterar(Curriculo curriculo) throws Exception {
         try {
             if (curriculo.getPrimeiroNome().equals("") || (curriculo.getPrimeiroNome() == null)) {
                 throw new Exception("Informe primeiro nome");
@@ -85,23 +85,23 @@ public class RnCurriculo {
             if (curriculo.getContatoEmail().equals("") || curriculo.getContatoEmail() == null) {
                 throw new Exception("Informe email válido");
             }
-            r.alterarCur(curriculo);
+            r.alterar(curriculo);
         } catch (SQLException | ClassNotFoundException ex) {
             throw new Exception(ex.getMessage());
         }
     }
 
-    public Curriculo procurarCur(int cod) throws Exception {
+    public Curriculo procurar(int codCur) throws Exception {
         Curriculo cur = new Curriculo();
         try {
-            String temp = Integer.toString(cod);
+            String temp = Integer.toString(codCur);
             for (int i = 0; i < temp.length(); i++) {
                 char num = temp.charAt(i);
                 if (Character.isDigit(num) == false) {
                     throw new Exception("Codigo Inválido");
                 }
             }
-            cur = r.procurarCur(cod);
+            cur = r.procurar(codCur);
             if (cur == null) {
                 throw new Exception("Não existe curriculo com este código");
             }
@@ -117,6 +117,26 @@ public class RnCurriculo {
         lista = r.listarCur();
         }catch(  SQLException | ClassNotFoundException e){
         throw new Exception(e.getMessage());
+        }
+        return lista;
+    }
+    
+    public ArrayList<Curriculo> listarNomeCur(String filtro)throws Exception{
+        ArrayList<Curriculo> lista = new ArrayList<>();
+        try {
+            lista = r.listarNomeCur(filtro);
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new Exception(e.getMessage());
+        }
+        return lista;
+    }
+    
+    public ArrayList<Curriculo> listarSobreNomeCur(String filtro)throws Exception{
+        ArrayList<Curriculo> lista = new ArrayList<>();
+        try {
+            lista = r.listarSobreNomeCur(filtro);
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new Exception(e.getMessage());
         }
         return lista;
     }

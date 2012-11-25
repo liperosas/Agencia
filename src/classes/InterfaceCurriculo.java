@@ -13,9 +13,9 @@ import java.util.ArrayList;
  */
 public interface InterfaceCurriculo {
     void inserir(Curriculo curriculo) throws SQLException, ClassNotFoundException;
-    void removerCur(int cod) throws SQLException, ClassNotFoundException;
-    void alterarCur(Curriculo curriculo) throws SQLException, ClassNotFoundException;
-    Curriculo procurarCur(int cod) throws SQLException, ClassNotFoundException;
+    void remover(int codCur) throws SQLException, ClassNotFoundException;
+    void alterar(Curriculo curriculo) throws SQLException, ClassNotFoundException;
+    Curriculo procurar(int codCur) throws SQLException, ClassNotFoundException;
     /**
      *
      * @return

@@ -15,12 +15,14 @@ import javax.swing.JOptionPane;
 public class AlterarAgencia extends javax.swing.JFrame {
 
     Fachada fachada = new Fachada();
+    ListaAgencia lA;
 
     /**
      * Creates new form AlterarAgencia
      */
-    public AlterarAgencia(Agencia agencia) {
+    public AlterarAgencia(Agencia agencia, ListaAgencia lA) {
         initComponents();
+        this.lA = lA;
         tCodigo.setText(Integer.toString(agencia.getAg_cod()));
         tNome.setText(agencia.getAg_nome());
         tEndereco.setText(agencia.getAg_endereco());
@@ -192,6 +194,7 @@ public class AlterarAgencia extends javax.swing.JFrame {
 
                 fachada.alterar(agencia);
                 JOptionPane.showMessageDialog(rootPane, "Cadastro Alterado com sucesso");
+                lA.atualizarTabela();
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage());

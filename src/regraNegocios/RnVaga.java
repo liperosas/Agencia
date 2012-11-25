@@ -120,9 +120,39 @@ public class RnVaga {
     }
 
     public ArrayList<Vaga> listarVag() throws Exception {
-        ArrayList<Vaga> lista = new ArrayList<>();
+        ArrayList<Vaga> lista = new ArrayList<Vaga>();
         try {
             lista = r.listarVag();
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new Exception(e.getMessage());
+        }
+        return lista;
+    }
+    
+    public ArrayList<Vaga> listarAgenciaVag(String filtro)throws Exception{
+        ArrayList<Vaga> lista = new ArrayList<Vaga>();
+        try {
+            lista = r.listarAgenciaVag(filtro);
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new Exception(e.getMessage());
+        }
+        return lista;
+    }
+    
+    public ArrayList<Vaga> listarTipoVag(String filtro)throws Exception{
+        ArrayList<Vaga> lista = new ArrayList<Vaga>();
+        try {
+            lista = r.listarTipoVag(filtro);
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new Exception(e.getMessage());
+        }
+        return lista;
+    }
+    
+    public ArrayList<Vaga> listarPreReqVag(String filtro)throws Exception{
+        ArrayList<Vaga> lista = new ArrayList<Vaga>();
+        try {
+            lista = r.listarPreReqVag(filtro);
         } catch (SQLException | ClassNotFoundException e) {
             throw new Exception(e.getMessage());
         }
