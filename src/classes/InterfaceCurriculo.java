@@ -12,15 +12,21 @@ import java.util.ArrayList;
  * @author Felipe
  */
 public interface InterfaceCurriculo {
+
     void inserir(Curriculo curriculo) throws SQLException, ClassNotFoundException;
+
     void remover(int codCur) throws SQLException, ClassNotFoundException;
+
     void alterar(Curriculo curriculo) throws SQLException, ClassNotFoundException;
+
     Curriculo procurar(int codCur) throws SQLException, ClassNotFoundException;
+
     /**
      *
-     * @return
-     * @throws SQLException
+     * @return @throws SQLException
      * @throws ClassNotFoundException
      */
     ArrayList<Curriculo> listarCur() throws SQLException, ClassNotFoundException;
+
+    ArrayList<Curriculo> listarNomeCur(String filtro) throws SQLException, ClassNotFoundException;
 }

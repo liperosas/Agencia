@@ -25,9 +25,11 @@ public class RepositorioCategoria extends Conexao implements InterfaceCategoria 
      * @param nome
      * @throws Exception
      */
+    
     public void testemelo(Categoria nome) throws Exception{
         
     }
+     
 
     @Override
     public void inserirCat(Categoria categoria) throws SQLException, ClassNotFoundException {
@@ -68,6 +70,13 @@ public class RepositorioCategoria extends Conexao implements InterfaceCategoria 
         return categoria;
     }
 
+    /**
+     *
+     * @param cod
+     * @return
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     public ArrayList<Categoria> listarCat() throws SQLException, ClassNotFoundException {
         ArrayList<Categoria> categorias = new ArrayList<>();
         conex = conectar();
