@@ -41,16 +41,16 @@ public class RnVaga {
              }
              */
             if (vaga.getVaga_local().equals("") || (vaga.getVaga_local() == null)) {
-                throw new Exception("Campo local encontra-se vazio.\n Favor informar local");
+                throw new Exception("Campo local encontra-se vazio.\n Favor informar local.");
             }
             if (vaga.getTipo_vaga().equals("") || vaga.getTipo_vaga() == null) {
-                throw new Exception("Campo tipo encontra-se vazio.\nFavor informar tipo");
+                throw new Exception("Campo tipo encontra-se vazio.\nFavor informar tipo.");
             }
 
             Agencia agencia = new Agencia();
             agencia = r.verificar(vaga.getAgencia().getAg_cod());
             if (agencia.getAg_cod() == 0) {
-                throw new Exception("Agencia Inválida.\nNão existe agência com este código ");
+                throw new Exception("Agencia inválida.\nNão existe Agência com este código.");
             }
 
         } catch (SQLException | ClassNotFoundException ex) {
@@ -106,7 +106,7 @@ public class RnVaga {
             for (int i = 0; i < temp.length(); i++) {
                 char num = temp.charAt(i);
                 if (Character.isDigit(num) == false) {
-                    throw new Exception("Codigo Inválido");
+                    throw new Exception("Codigo inválido");
                 }
             }
             vag = r.procurarVag(cod);

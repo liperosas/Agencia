@@ -219,6 +219,7 @@ public class CadastroAgencia extends javax.swing.JFrame {
         Categoria c = new Categoria();
         c.setCat_cod(codigo[jComboBox1.getSelectedIndex()]);
         categorias.add(c);
+        JOptionPane.showMessageDialog(rootPane, "Categoria cadastrada com sucesso");
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**

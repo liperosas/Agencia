@@ -31,7 +31,7 @@ public class RnCurriculo {
                 throw new Exception("Informe sobrenome");
             }
             if (!"F".equals(curriculo.getSexo()) && !"Feminino".equals(curriculo.getSexo()) && !"M".equals(curriculo.getSexo()) && !"Masculino".equals(curriculo.getSexo())) {
-                throw new Exception("Informe sexo válido");
+                throw new Exception("Informe sexo válido(Feminino(F)ou Masculino(M)).");
             }
             if (curriculo.getEndereco().equals("") || curriculo.getEndereco() == null) {
                 throw new Exception("Informe endereço válido");

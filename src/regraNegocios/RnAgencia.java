@@ -44,14 +44,14 @@ public class RnAgencia {
                 throw new Exception("Campo endereço não pode estar vazio");
             }
             if (agencia.getAg_fone().equals("")) {
-                throw new Exception("Campo telefone encontra-se vazio. \nfavor informar telefone no formato solicitado");
+                throw new Exception("Campo telefone encontra-se vazio. \nfavor informar telefone no formato solicitado EX: (81)3268-0688");
             } else {
                 if (agencia.getAg_fone().length() != 13) {
                     throw new Exception("Informe telefone no formato (xx)xxxx-xxxx");
                 }
             }
             if (!(agencia.getAg_email().indexOf("@") != -1 && agencia.getAg_email().indexOf(".") != -1)) {
-                throw new Exception("Informe email válido");
+                throw new Exception("Informe email válido no formato: xxx@xxx.com");
             }
             if (agencia.getCategorias().isEmpty()) {
                 throw new Exception("Cadastre ao menos uma categoria");
@@ -89,8 +89,7 @@ public class RnAgencia {
             vagas = r.vagasAgencia(cod);
             if (vagas.isEmpty() == false) {
                 throw new Exception("Existe uma vaga com este registro, \nPorfavor remova primeiro todas as vagas com este registro para prosseguir");
-            }
-            
+            }            
 
             r.removerAg(cod);
 
@@ -108,14 +107,14 @@ public class RnAgencia {
                 throw new Exception("Informe endereço válido");
             }
             if (agencia.getAg_fone().equals("")) {
-                throw new Exception("Campo telefone encontra-se vazio. \nfavor informar telefone no formato solicitado");
+                throw new Exception("Campo telefone encontra-se vazio. \nfavor informar telefone no formato solicitado EX: (81)3268-0688");
             } else {
                 if (agencia.getAg_fone().length() != 13) {
                     throw new Exception("Informe telefone no formato (xx)xxxx-xxxx");
                 }
             }
             if (!(agencia.getAg_email().indexOf("@") != -1 || agencia.getAg_email().indexOf(".") != -1)) {
-                throw new Exception("Informe email válido");
+               throw new Exception("Informe email válido no formato: xxx@xxx.com");
             }
             r.alterarAg(agencia);
         } catch (SQLException | ClassNotFoundException ex) {

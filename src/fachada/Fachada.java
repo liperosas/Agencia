@@ -107,8 +107,8 @@ public class Fachada {
         lista = rna.listarNomeAg(filtro);
         return lista;
     }
-    
-     public ArrayList<Agencia> validarAg(String filtro) throws Exception {
+
+    public ArrayList<Agencia> validarAg(String filtro) throws Exception {
         ArrayList<Agencia> lista = new ArrayList<Agencia>();
         lista = rna.validarAg(filtro);
         return lista;
